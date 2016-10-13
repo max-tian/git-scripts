@@ -77,8 +77,14 @@ alias mergehead='! f() { git merge FETCH_HEAD; }; f'
 alias pushhead='! f() { git push origin HEAD:$1; }; f'
 
 # Branch
-alias deletebranch='! f() { git branch | grep $1 | xargs git branch -D; }; f'
-alias newbranch='! f() { git checkout $1 --track $1; }; f'
+alias delbr='! f() { git branch | grep $1 | xargs git branch -D; }; f'
+# checkout remote branch and track
+# $1 remote branch name
+alias newbr='! f() { git checkout --track -b $1; }; f'
+# checkout remote branch as local name
+# $1 remote branch name
+# $2 local branch name
+alias newbr2='! f() { git checkout --track -b $1 $2 }; f'
 
 # Stash
 alias stashlist='git stash list'
