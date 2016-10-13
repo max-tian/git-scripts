@@ -1,6 +1,6 @@
 # Basic operations
 alias add='git add'
-alias addl='git add -all'
+alias addl='git add --all'
 alias br='git branch'
 alias bra='git branch -a'
 alias ci='git commit'
