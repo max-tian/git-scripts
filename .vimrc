@@ -1,7 +1,8 @@
+" color scheme
+set t_Co=256
+
 set cursorline
 set number
-hi CursorLine term=bold cterm=bold ctermbg=8 ctermfg=15
-hi Cursor ctermbg=15 ctermfg=8
 
 " encoding
 set fenc=utf-8
@@ -39,3 +40,5 @@ set confirm
 set clipboard+=unnamed
 filetype on
 filetype plugin on
+
+colorscheme dracula
