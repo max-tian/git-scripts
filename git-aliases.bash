@@ -60,15 +60,17 @@ alias dfr='! f() { git diff origin/$1~$2 }; f'
 
 # Clean
 alias clean='git reset --hard && git clean -dfx'
+alias rollback='git reset --heard'
 # remove file from commit/cache
 # $1 file name
 alias rmci='! f() { git rm --cached $1; }; f'
 # remove directory from commit/cach
 # $1 directory name
 alias rmci2='! f() { git rm --cached -r $1 }; f'
+alias killchanges='! f() { git checkout -- .; }; f'
 
 # Fetch
-alias fetchhead='! f() { git fetch origin:$1; }; f'
+alias fetchhead='! f() { git fetch origin $1; }; f'
 
 # Merge
 alias mergehead='! f() { git merge FETCH_HEAD; }; f'
@@ -78,6 +80,7 @@ alias pushhead='! f() { git push origin HEAD:$1; }; f'
 
 # Branch
 alias delbr='! f() { git branch | grep $1 | xargs git branch -D; }; f'
+alias delbr1='! f() { git branch | grep -v "master" | xargs git branch -D; }; f'
 # checkout remote branch and track
 # $1 remote branch name
 alias newbr='! f() { git checkout --track -b $1; }; f'
@@ -89,10 +92,15 @@ alias newbr2='! f() { git checkout --track -b $1 $2 }; f'
 # Stash
 alias stashlist='git stash list'
 alias stashsave='git stash save'
+alias stashsave1='git stash save --keep-index'
+alias stashsave2='git stash save --untracked'
 alias stashpop='git stash pop'
 alias stashdrop='git stash drop'
 alias stashapply='! f() { git stash apply stash@{$1}; }; f'
 alias stashshow='! f() { git stash show --text }; f'
+# show the diff which record in stash with specific number
+# $1 stash number
+alias stashshow1='! f() { git stash show -p stash@{$1} }; f'
 
 # Prune
 alias pruneall='git remote | xargs -n 1 git remote prune'
