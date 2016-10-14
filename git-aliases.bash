@@ -76,7 +76,7 @@ alias fetchhead='! f() { git fetch origin $1; }; f'
 alias mergehead='! f() { git merge FETCH_HEAD; }; f'
 
 # Push
-alias pushhead='! f() { git push origin HEAD:$1; }; f'
+alias pushead='! f() { git push origin HEAD:$1; }; f'
 
 # Branch
 alias delbr='! f() { git branch | grep $1 | xargs git branch -D; }; f'
