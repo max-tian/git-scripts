@@ -104,6 +104,7 @@ alias stashshow1='! f() { git stash show -p stash@{$1} }; f'
 
 # Prune
 alias pruneall='git remote | xargs -n 1 git remote prune'
+alias prune='git remote prune origin'
 
 # Ignore
 alias ignore='git update-index --assume-unchanged'
