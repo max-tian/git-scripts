@@ -14,8 +14,9 @@
 # git-scripts: master
 __git_local_repos ()
 {
-    local parent_dir=$(pwd) pattern="ref: refs/heads/" split_path max=0
+    local parent_dir=$(pwd) pattern="ref: refs/heads/" current_dir split_path max=0 existed=false
     local -a dir_len_array
+    local error_msg="There is no .git directory in parent folder($parent_dir).\nPlease change your directory to your repositories parent folder."
     echo "Parent Directory: "$parent_dir;
 
     # Looping sub-directories in parent dir and put the length of each direcotry's name
@@ -41,7 +42,8 @@ __git_local_repos ()
     for k in $parent_dir/* ; do
         current_dir=$k;
         if [ -d "$current_dir" ]; then
-            if [ -d "$k/.git" ]; then
+            if [ -e "$k/.git" -a -d "$k/.git" ]; then
+                existed=true;
                 if [ -f "$i/.git/HEAD" ]; then
                     while IFS='' read -r line || [[ -n "$line" ]]; do
                         printf '\e[1;32;40m%*s\033[0m: \e[1;31;40m%s\033[0m\n' $((max+1)) "${k:${#parent_dir}+1}" "${line:${#pattern}}"
@@ -50,6 +52,10 @@ __git_local_repos ()
             fi
 	    fi
     done
+
+    if [ "$existed" = false ]; then
+        echo -e $error_msg;
+    fi
 
     $(cd $parent_dir);
 }
