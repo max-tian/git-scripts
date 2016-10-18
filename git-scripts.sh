@@ -8,11 +8,11 @@
 # First, change your directory to your git repositories holder place. Which means parent directory.
 # Second, type '__git_local_repos' in your bash command line and hit enter key.
 # You will see follwing results:
-# $ __git_local_repos
+# $ __git_current_heads
 # Parent Directory: /d/github
 #         git: master
 # git-scripts: master
-__git_local_repos ()
+__git_current_heads ()
 {
     local parent_dir=$(pwd) pattern="ref: refs/heads/" current_dir split_path max=0 existed=false
     local -a dir_len_array
@@ -42,7 +42,7 @@ __git_local_repos ()
     for k in $parent_dir/* ; do
         current_dir=$k;
         if [ -d "$current_dir" ]; then
-            if [ -e "$k/.git" -a -d "$k/.git" ]; then
+            if [ -e "$k/.git" ] && [ -d "$k/.git" ]; then
                 existed=true;
                 if [ -f "$i/.git/HEAD" ]; then
                     while IFS='' read -r line || [[ -n "$line" ]]; do
