@@ -14,8 +14,9 @@
 # git-scripts: master
 __git_current_heads ()
 {
-    local parent_dir=$(pwd) pattern="ref: refs/heads/" current_dir split_path max=0 existed=false
+    local parent_dir=$(pwd) pattern="ref: refs/heads/" current_dir split_path max=0 current=0 existed=false
     local -a dir_len_array
+    local counter=0
     local error_msg="There is no .git directory in parent folder($parent_dir).\nPlease change your directory to your repositories parent folder."
     echo "Parent Directory: "$parent_dir;
 
@@ -23,16 +24,15 @@ __git_current_heads ()
     # into array for next calculation.
     for i in $parent_dir/* ;do
         if [ -d "$i" ]; then
-            split_path=${i:${#parent_dir}+1};
-            dir_len_array+=("${#split_path}");
-        fi
-    done
+            split_path=${i:${#parent_dir}+1}
+            dir_len_array+=("${#split_path}")
+            current=${dir_len_array[$counter]}
 
-    # Looping the numbers array and find the max value of it.
-    # Use it for appending prefix spaces.
-    for j in ${dir_len_array[@]} ; do
-        if [ $j -gt $max ]; then
-            max=$j;
+            if [ $current -gt $max ]; then
+                max=$current
+            fi
+
+            ((counter++))
         fi
     done
 
@@ -43,7 +43,7 @@ __git_current_heads ()
         current_dir=$k;
         if [ -d "$current_dir" ]; then
             if [ -e "$k/.git" ] && [ -d "$k/.git" ]; then
-                existed=true;
+                existed=true
                 if [ -f "$i/.git/HEAD" ]; then
                     while IFS='' read -r line || [[ -n "$line" ]]; do
                         printf '\e[1;32;40m%*s\033[0m: \e[1;31;40m%s\033[0m\n' $((max+1)) "${k:${#parent_dir}+1}" "${line:${#pattern}}"
@@ -54,8 +54,8 @@ __git_current_heads ()
     done
 
     if [ "$existed" = false ]; then
-        echo -e $error_msg;
+        echo -e $error_msg
     fi
 
-    $(cd $parent_dir);
+    $(cd $parent_dir)
 }
