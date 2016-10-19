@@ -6,7 +6,7 @@
 # Thus, there is no recursive invokation to loop sub-direcotories for looking up other repositories.
 # Usage:
 # First, change your directory to your git repositories holder place. Which means parent directory.
-# Second, type '__git_local_repos' in your bash command line and hit enter key.
+# Second, type '__git_current_heads' in your bash command line and hit enter key.
 # You will see follwing results:
 # $ __git_current_heads
 # Parent Directory: /d/github
