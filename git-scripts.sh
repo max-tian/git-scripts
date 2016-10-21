@@ -59,3 +59,22 @@ __git_current_heads ()
 
     $(cd $parent_dir)
 }
+
+# This function aim to clean all of local repositories with specific git alias for git-clean command.
+# NOTICE: All of untracked files/directories in local repositories will be clean.
+__git_clean_all_repos ()
+{
+    local parent_dir=$(pwd)
+    echo "Parent directory: $parent_dir"
+
+    for i in $parent_dir/* ; do
+        echo "===git clean: start===$i"
+        if [ -d "$i" ]; then
+            cd $i
+            clean
+        fi
+        echo "===git clean: end===$i"
+    done
+
+    cd $parent_dir
+}
